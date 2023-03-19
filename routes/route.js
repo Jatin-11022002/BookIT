@@ -1,8 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const { login, register, requireAuth } = require("../controller/auth");
+const { login, register, requireAuth, getUser } = require("../controller/auth");
 const { getAllBooks, getBook } = require("../controller/dashboard");
+const regBook = require("../controller/bookreg");
+const getbooks = require("../controller/swap");
+//const newFile = require("../controller/newBook");
+const {
+  addMessage,
+  getAllMessages,
+  getAllChats,
+} = require("../controller/chat");
 const newFile = require("../controller/newBook");
 
 const storage = multer.diskStorage({
@@ -41,4 +49,33 @@ router
   .post(getBook);
 
 router.route("/bookView/:id").get((req, res) => res.render("bookView.ejs"));
+
+router
+  .route("/chat")
+  .get(requireAuth, (req, res) => {
+    res.locals.stuff = {
+      query: req.query,
+    };
+    res.render("chat.ejs");
+  })
+  .get(getAllMessages);
+
+router
+  .route("/postbook")
+  .get((req, res) => {
+    res.render("bookreg.ejs");
+  })
+  .post(regBook);
+router
+  .route("/swap")
+  .get((req, res) => {
+    res.render("swap.ejs");
+  })
+  .post(getbooks);
+
+router.route("/chat/addMessage").post(addMessage);
+router.route("/chat/getAllMessages/").get(getAllMessages);
+router.route("/chat/getAllChats/").get(getAllChats);
+router.route("/getUser").get(getUser);
+
 module.exports = router;

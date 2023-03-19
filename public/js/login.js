@@ -23,7 +23,9 @@ loginBtn.addEventListener("click", async (e) => {
   if (response.status === "success") {
     // console.log(response, "success response");
     alert(response.msg);
+    let user = [...response.user][0];
     localStorage.setItem("token", response.token);
+    localStorage.setItem("user_id", user._id);
     location.href = "/home";
   } else {
     alert(response.msg);

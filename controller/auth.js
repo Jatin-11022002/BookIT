@@ -84,4 +84,15 @@ const requireAuth = (req, res, next) => {
   }
 };
 
-module.exports = { login, register, requireAuth };
+const getUser = async (req, res) => {
+  try {
+    const { userId } = req.query;
+    const userData = await User.find({ _id: userId });
+    return res.json({ userData });
+    console.log("this is user", userData);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = { login, register, requireAuth, getUser };
