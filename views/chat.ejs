@@ -13,6 +13,12 @@
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
+    <script src="
+    https://cdn.jsdelivr.net/npm/vanilla-emoji-picker@0.2.4/dist/emojiPicker.min.js
+    "></script>
+    <script type="module">
+        import picmo from 'https://cdn.jsdelivr.net/npm/picmo@5.8.1/+esm'
+    </script>
 
     <body>
 
@@ -105,7 +111,7 @@
                 </div>
                 <!-- chat input -->
                 <div class="chatbox_input">
-                    <ion-icon name="happy-outline"></ion-icon>
+                    <ion-icon name="happy-outline" onclick="toggleEmoji()"></ion-icon>
                     <ion-icon name="attach-outline"></ion-icon>
                     <input type="text" placeholder="Type a message" id="message">
                     <ion-icon name="send" onclick="sendMessage()"></ion-icon>

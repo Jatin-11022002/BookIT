@@ -2,7 +2,6 @@ console.log("chat js");
 
 const socket = io();
 //socket.emit("add-user", "637afeb00fcc319a063dd508");
-const establishConnection = () => {};
 
 socket.on("updateChat", (data) => {
   console.log(data);
@@ -84,6 +83,21 @@ const getAllMessages = async (id) => {
 </div>; */
 }
 
+const blockUser = async () => {
+  const personId = document.getElementById("activeChat").value;
+  const userId = localStorage.getItem("user_id");
+  const response = await fetch(
+    `http://localhost:8000/chat/blockUser/?user=${userId}&&person=${personId}`,
+    {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  ).then((data) => data.json());
+  console.log(response);
+};
+// blockUser();
 const getAllChats = async () => {
   const user = `${localStorage.getItem("user_id")}`;
   let chatsDiv = document.getElementById("chatList");

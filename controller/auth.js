@@ -95,4 +95,62 @@ const getUser = async (req, res) => {
   }
 };
 
-module.exports = { login, register, requireAuth, getUser };
+const blockUser = async (req, res) => {
+  try {
+    const { user, person } = req.query;
+    console.log(req.query);
+    const response = await User.updateOne(
+      {
+        _id: `${user}`,
+      },
+      [
+        {
+          $set: {
+            blockedUsers: {
+              $cond: [
+                {
+                  $in: [`${person}`, "$blockedUsers"],
+                },
+                {
+                  $setDifference: ["$blockedUsers", [`${person}`]],
+                },
+                {
+                  $concatArrays: ["$blockedUsers", [`${person}`]],
+                },
+              ],
+            },
+          },
+        },
+      ]
+    );
+    console.log(response);
+    res.json({ msg: "Operation Completed", response });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const updateDatabase = async (req, res) => {
+  try {
+    const response = await User.update(
+      {},
+      {
+        $set: {
+          blockedUsers: [],
+        },
+      },
+      { multi: true }
+    );
+    res.json({ response });
+  } catch (error) {
+    console.log(error);
+  }
+};
+module.exports = {
+  login,
+  register,
+  requireAuth,
+  getUser,
+  updateDatabase,
+  blockUser,
+};

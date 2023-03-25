@@ -333,3 +333,21 @@ body {
   border-radius: 30px;
   font-size: 1em;
 }
+
+.chat-selector {
+  background-color: white;
+  border-radius: 1rem;
+  cursor: default;
+  display: block;
+  padding: 0;
+  border: 1px solid #eee;
+  position: absolute;
+  bottom: 0%;
+  width: 325px;
+  height: 350px;
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  overflow: auto;
+  transition: bottom 0.3s ease, opacity 0.3s ease;
+}

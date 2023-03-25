@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
     type: Array,
     default: ["entry of object"],
   },
+  blockedUsers: {
+    type: Array,
+    default: [],
+  },
 });
 
 // UserSchema.pre("save", async function () {

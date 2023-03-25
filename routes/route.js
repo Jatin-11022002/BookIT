@@ -1,7 +1,14 @@
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
-const { login, register, requireAuth, getUser } = require("../controller/auth");
+const {
+  login,
+  register,
+  requireAuth,
+  getUser,
+  updateDatabase,
+  blockUser,
+} = require("../controller/auth");
 const { getAllBooks, getBook } = require("../controller/dashboard");
 const regBook = require("../controller/bookreg");
 const getbooks = require("../controller/swap");
@@ -76,6 +83,9 @@ router
 router.route("/chat/addMessage").post(addMessage);
 router.route("/chat/getAllMessages/").get(getAllMessages);
 router.route("/chat/getAllChats/").get(getAllChats);
+router.route("/chat/blockUser/").post(blockUser);
 router.route("/getUser").get(getUser);
+
+router.route("/updateDatabase").get(updateDatabase);
 
 module.exports = router;
